@@ -66,7 +66,7 @@ const generateTeachers = () => {
       lecturesPerWeek: Math.floor(15 + Math.random() * 10),
       maxLecturesPerDay: 5,
       phone: `+91 98${Math.floor(10000000 + Math.random() * 90000000)}`,
-      email: `${first.toLowerCase()}.${last.toLowerCase()}@eduone.org`
+      email: `${first.toLowerCase()}.${last.toLowerCase()}@rootshala.com`
     });
   }
   return teachers;

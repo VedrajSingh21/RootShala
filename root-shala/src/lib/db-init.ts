@@ -36,35 +36,35 @@ export const initializeDatabase = async () => {
         password: "vikram@739",
         role: "Super Admin",
         name: "Vikram Sharma",
-        email: "emp-739@eduone.local"
+        email: "emp-739@rootshala.local"
       },
       "EMP-902": {
         id: "EMP-902",
         password: "anjali@902",
         role: "Principal",
         name: "Anjali Desai",
-        email: "emp-902@eduone.local"
+        email: "emp-902@rootshala.local"
       },
       "TCH-202": {
         id: "TCH-202",
         password: "priya@202",
         role: "Class Teacher",
         name: "Priya Patel",
-        email: "tch-202@eduone.local"
+        email: "tch-202@rootshala.local"
       },
       "ACT-511": {
         id: "ACT-511",
         password: "rahul@511",
         role: "Accountant",
         name: "Rahul Verma",
-        email: "act-511@eduone.local"
+        email: "act-511@rootshala.local"
       },
       "REC-114": {
         id: "REC-114",
         password: "sneha@114",
         role: "Receptionist",
         name: "Sneha Reddy",
-        email: "rec-114@eduone.local"
+        email: "rec-114@rootshala.local"
       }
     };
 

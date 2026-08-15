@@ -14062,7 +14062,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 22,
     "maxLecturesPerDay": 5,
     "phone": "+91 9837097226",
-    "email": "alok.deshmukh@eduone.org"
+    "email": "alok.deshmukh@rootshala.com"
   },
   {
     "id": "TCH-202",
@@ -14082,7 +14082,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 20,
     "maxLecturesPerDay": 5,
     "phone": "+91 9848593490",
-    "email": "karan.deshmukh@eduone.org"
+    "email": "karan.deshmukh@rootshala.com"
   },
   {
     "id": "TCH-203",
@@ -14102,7 +14102,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 20,
     "maxLecturesPerDay": 5,
     "phone": "+91 9846059954",
-    "email": "sunita.nath@eduone.org"
+    "email": "sunita.nath@rootshala.com"
   },
   {
     "id": "TCH-204",
@@ -14122,7 +14122,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 18,
     "maxLecturesPerDay": 5,
     "phone": "+91 9860602059",
-    "email": "sunita.kulkarni@eduone.org"
+    "email": "sunita.kulkarni@rootshala.com"
   },
   {
     "id": "TCH-205",
@@ -14142,7 +14142,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 21,
     "maxLecturesPerDay": 5,
     "phone": "+91 9828064442",
-    "email": "amit.nath@eduone.org"
+    "email": "amit.nath@rootshala.com"
   },
   {
     "id": "TCH-206",
@@ -14161,7 +14161,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 16,
     "maxLecturesPerDay": 4,
     "phone": "+91 9878263553",
-    "email": "sneha.deshmukh@eduone.org"
+    "email": "sneha.deshmukh@rootshala.com"
   },
   {
     "id": "TCH-207",
@@ -14179,7 +14179,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 23,
     "maxLecturesPerDay": 5,
     "phone": "+91 9827614050",
-    "email": "vikram.desai@eduone.org"
+    "email": "vikram.desai@rootshala.com"
   },
   {
     "id": "TCH-208",
@@ -14198,7 +14198,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 18,
     "maxLecturesPerDay": 5,
     "phone": "+91 9830623314",
-    "email": "amit.singh@eduone.org"
+    "email": "amit.singh@rootshala.com"
   },
   {
     "id": "TCH-209",
@@ -14217,7 +14217,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 15,
     "maxLecturesPerDay": 5,
     "phone": "+91 9850618839",
-    "email": "karan.desai@eduone.org"
+    "email": "karan.desai@rootshala.com"
   },
   {
     "id": "TCH-210",
@@ -14236,7 +14236,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 19,
     "maxLecturesPerDay": 5,
     "phone": "+91 9860200092",
-    "email": "rajesh.nath@eduone.org"
+    "email": "rajesh.nath@rootshala.com"
   },
   {
     "id": "TCH-211",
@@ -14255,7 +14255,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 23,
     "maxLecturesPerDay": 5,
     "phone": "+91 9840258386",
-    "email": "vikram.verma@eduone.org"
+    "email": "vikram.verma@rootshala.com"
   },
   {
     "id": "TCH-212",
@@ -14274,7 +14274,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 19,
     "maxLecturesPerDay": 5,
     "phone": "+91 9873533013",
-    "email": "sunita.nath@eduone.org"
+    "email": "sunita.nath@rootshala.com"
   },
   {
     "id": "TCH-213",
@@ -14293,7 +14293,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 20,
     "maxLecturesPerDay": 5,
     "phone": "+91 9866581621",
-    "email": "amit.joshi@eduone.org"
+    "email": "amit.joshi@rootshala.com"
   },
   {
     "id": "TCH-214",
@@ -14312,7 +14312,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 19,
     "maxLecturesPerDay": 5,
     "phone": "+91 9880785978",
-    "email": "sneha.desai@eduone.org"
+    "email": "sneha.desai@rootshala.com"
   },
   {
     "id": "TCH-215",
@@ -14331,7 +14331,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 15,
     "maxLecturesPerDay": 5,
     "phone": "+91 9869674567",
-    "email": "pooja.verma@eduone.org"
+    "email": "pooja.verma@rootshala.com"
   },
   {
     "id": "TCH-216",
@@ -14350,7 +14350,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 20,
     "maxLecturesPerDay": 5,
     "phone": "+91 9837235763",
-    "email": "ravi.miller@eduone.org"
+    "email": "ravi.miller@rootshala.com"
   },
   {
     "id": "TCH-217",
@@ -14369,7 +14369,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 23,
     "maxLecturesPerDay": 5,
     "phone": "+91 9833132617",
-    "email": "alok.kulkarni@eduone.org"
+    "email": "alok.kulkarni@rootshala.com"
   },
   {
     "id": "TCH-218",
@@ -14387,7 +14387,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 21,
     "maxLecturesPerDay": 5,
     "phone": "+91 9880120324",
-    "email": "sneha.reddy@eduone.org"
+    "email": "sneha.reddy@rootshala.com"
   },
   {
     "id": "TCH-219",
@@ -14406,7 +14406,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 20,
     "maxLecturesPerDay": 5,
     "phone": "+91 9893939757",
-    "email": "pooja.verma@eduone.org"
+    "email": "pooja.verma@rootshala.com"
   },
   {
     "id": "TCH-220",
@@ -14425,7 +14425,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 22,
     "maxLecturesPerDay": 5,
     "phone": "+91 9889674666",
-    "email": "neha.sharma@eduone.org"
+    "email": "neha.sharma@rootshala.com"
   },
   {
     "id": "TCH-221",
@@ -14443,7 +14443,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 18,
     "maxLecturesPerDay": 5,
     "phone": "+91 9835926106",
-    "email": "ravi.reddy@eduone.org"
+    "email": "ravi.reddy@rootshala.com"
   },
   {
     "id": "TCH-222",
@@ -14462,7 +14462,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 24,
     "maxLecturesPerDay": 5,
     "phone": "+91 9846712590",
-    "email": "alok.deshmukh@eduone.org"
+    "email": "alok.deshmukh@rootshala.com"
   },
   {
     "id": "TCH-223",
@@ -14481,7 +14481,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 21,
     "maxLecturesPerDay": 5,
     "phone": "+91 9858799524",
-    "email": "david.gupta@eduone.org"
+    "email": "david.gupta@rootshala.com"
   },
   {
     "id": "TCH-224",
@@ -14500,7 +14500,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 18,
     "maxLecturesPerDay": 5,
     "phone": "+91 9850161836",
-    "email": "ravi.deshmukh@eduone.org"
+    "email": "ravi.deshmukh@rootshala.com"
   },
   {
     "id": "TCH-225",
@@ -14519,7 +14519,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 22,
     "maxLecturesPerDay": 5,
     "phone": "+91 9850629167",
-    "email": "vikram.reddy@eduone.org"
+    "email": "vikram.reddy@rootshala.com"
   },
   {
     "id": "TCH-226",
@@ -14538,7 +14538,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 17,
     "maxLecturesPerDay": 5,
     "phone": "+91 9830700613",
-    "email": "amit.patel@eduone.org"
+    "email": "amit.patel@rootshala.com"
   },
   {
     "id": "TCH-227",
@@ -14557,7 +14557,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 20,
     "maxLecturesPerDay": 5,
     "phone": "+91 9890428753",
-    "email": "sunita.miller@eduone.org"
+    "email": "sunita.miller@rootshala.com"
   },
   {
     "id": "TCH-228",
@@ -14576,7 +14576,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 15,
     "maxLecturesPerDay": 5,
     "phone": "+91 9830696848",
-    "email": "priyamvada.reddy@eduone.org"
+    "email": "priyamvada.reddy@rootshala.com"
   },
   {
     "id": "TCH-229",
@@ -14595,7 +14595,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 21,
     "maxLecturesPerDay": 5,
     "phone": "+91 9849721943",
-    "email": "alok.kulkarni@eduone.org"
+    "email": "alok.kulkarni@rootshala.com"
   },
   {
     "id": "TCH-230",
@@ -14614,7 +14614,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 24,
     "maxLecturesPerDay": 5,
     "phone": "+91 9870756279",
-    "email": "rahul.patel@eduone.org"
+    "email": "rahul.patel@rootshala.com"
   },
   {
     "id": "TCH-231",
@@ -14632,7 +14632,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 23,
     "maxLecturesPerDay": 5,
     "phone": "+91 9815344185",
-    "email": "priya.sen@eduone.org"
+    "email": "priya.sen@rootshala.com"
   },
   {
     "id": "TCH-232",
@@ -14651,7 +14651,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 18,
     "maxLecturesPerDay": 5,
     "phone": "+91 9828249180",
-    "email": "anjali.verma@eduone.org"
+    "email": "anjali.verma@rootshala.com"
   },
   {
     "id": "TCH-233",
@@ -14670,7 +14670,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 23,
     "maxLecturesPerDay": 5,
     "phone": "+91 9836527080",
-    "email": "vikram.sharma@eduone.org"
+    "email": "vikram.sharma@rootshala.com"
   },
   {
     "id": "TCH-234",
@@ -14688,7 +14688,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 16,
     "maxLecturesPerDay": 5,
     "phone": "+91 9861217249",
-    "email": "karan.verma@eduone.org"
+    "email": "karan.verma@rootshala.com"
   },
   {
     "id": "TCH-235",
@@ -14707,7 +14707,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 15,
     "maxLecturesPerDay": 5,
     "phone": "+91 9872264975",
-    "email": "neha.verma@eduone.org"
+    "email": "neha.verma@rootshala.com"
   },
   {
     "id": "TCH-236",
@@ -14726,7 +14726,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 19,
     "maxLecturesPerDay": 5,
     "phone": "+91 9845101069",
-    "email": "ravi.miller@eduone.org"
+    "email": "ravi.miller@rootshala.com"
   },
   {
     "id": "TCH-237",
@@ -14745,7 +14745,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 22,
     "maxLecturesPerDay": 5,
     "phone": "+91 9830636228",
-    "email": "ravi.joshi@eduone.org"
+    "email": "ravi.joshi@rootshala.com"
   },
   {
     "id": "TCH-238",
@@ -14764,7 +14764,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 16,
     "maxLecturesPerDay": 5,
     "phone": "+91 9834258843",
-    "email": "karan.singh@eduone.org"
+    "email": "karan.singh@rootshala.com"
   },
   {
     "id": "TCH-239",
@@ -14783,7 +14783,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 16,
     "maxLecturesPerDay": 5,
     "phone": "+91 9812755508",
-    "email": "rajesh.nath@eduone.org"
+    "email": "rajesh.nath@rootshala.com"
   },
   {
     "id": "TCH-240",
@@ -14802,7 +14802,7 @@ export const INITIAL_TEACHERS: Teacher[] = [
     "lecturesPerWeek": 15,
     "maxLecturesPerDay": 5,
     "phone": "+91 9844662542",
-    "email": "sunita.nath@eduone.org"
+    "email": "sunita.nath@rootshala.com"
   }
 ];
 

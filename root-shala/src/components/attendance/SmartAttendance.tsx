@@ -63,6 +63,14 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
 
   const lastScannedRef = React.useRef({ id: '', time: 0 });
 
+  const studentsRef = React.useRef(students);
+  const onMarkAttendanceRef = React.useRef(onMarkAttendance);
+
+  useEffect(() => {
+    studentsRef.current = students;
+    onMarkAttendanceRef.current = onMarkAttendance;
+  }, [students, onMarkAttendance]);
+
   const handleScanSuccess = React.useCallback((decodedText: string) => {
     const now = Date.now();
     if (decodedText === lastScannedRef.current.id && now - lastScannedRef.current.time < 3000) {
@@ -71,7 +79,7 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
 
     lastScannedRef.current = { id: decodedText, time: now };
 
-    const student = students.find(s => s.id === decodedText);
+    const student = studentsRef.current.find(s => s.id === decodedText);
     const timeString = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
     if (student) {
@@ -79,16 +87,14 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
         { id: student.id, name: student.name, time: timeString, gate: 'Manual QR Scan' },
         ...prev
       ].slice(0, 10));
-      onMarkAttendance(student.id, 'PRESENT');
+      onMarkAttendanceRef.current(student.id, 'PRESENT');
     } else {
       setRecentScans(prev => [
         { id: decodedText, name: 'Unknown / Staff', time: timeString, gate: 'Manual QR Scan' },
         ...prev
       ].slice(0, 10));
     }
-    
-    setIsScanning(false);
-  }, [students, onMarkAttendance]);
+  }, []);
 
   // Real CV Auto-Attendance using html5-qrcode natively
   useEffect(() => {

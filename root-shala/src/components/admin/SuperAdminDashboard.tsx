@@ -60,7 +60,7 @@ export const SuperAdminDashboard: React.FC = () => {
           name: newName,
           role: newRole,
           password: newPassword,
-          email: `${newStaffId.toLowerCase()}@eduone.com`
+          email: `${newStaffId.toLowerCase()}@rootshala.com`
         })
       });
 
