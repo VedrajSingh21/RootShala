@@ -105,7 +105,7 @@ export const OperationsDashboard: React.FC<OperationsDashboardProps> = ({
       </div>
 
       {/* Metric Cards - Dynamic by Role */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {(!currentUser || ['Super Admin', 'Principal', 'Vice Principal', 'User ID Administrator'].includes(currentUser.role)) && (
           <>
             <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
