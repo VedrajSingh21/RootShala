@@ -1,7 +1,7 @@
-# Rootshala
+# RootShala
 
 <div align="center">
-  <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200&h=400" alt="Rootshala Banner" width="100%" />
+  <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200&h=400" alt="RootShala Banner" width="100%" />
 </div>
 
 **RootShala** is a next-generation Educational ERP (Enterprise Resource Planning) and school management dashboard designed for the future of education. It leverages automation, simulated AI agents, and collaborative tools to streamline school operations, from fee reconciliation to timetable generation.
@@ -33,8 +33,8 @@
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/VedrajSingh1926/EduOne2047.git
-   cd EduOne2047/EduOne-2047
+   git clone https://github.com/VedrajSingh1926/RootShala.git
+   cd RootShala/RootShala
    ```
 
 2. **Install dependencies:**
@@ -54,7 +54,7 @@
    Navigate to `/init-db` in your browser to populate the Firebase Realtime Database with initial mock data (students, teachers, fees, etc.).
 
 ## 🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/VedrajSingh1926/EduOne2047/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/VedrajSingh1926/RootShala/issues).
 
 ---
 *Built for the future of education.*
