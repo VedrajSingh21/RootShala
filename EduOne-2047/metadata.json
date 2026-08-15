@@ -1,0 +1,8 @@
+{
+  "name": "Remix RootShala",
+  "description": "AI-powered School Operations Platform that automates administrative workflows and escalates critical decisions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

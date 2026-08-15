@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+@theme {
+  /* Core Monochromatic Emerald Scale */
+  --color-emerald-50: #EAF6F4;
+  --color-emerald-100: #A9D8D2;
+  --color-emerald-200: #4AAFA5;
+  --color-emerald-300: #159A8C;
+  --color-emerald-400: #0B8A7A;
+  --color-emerald-500: #066157;
+  --color-emerald-600: #055248;
+  --color-emerald-700: #04443D;
+  --color-emerald-800: #033A35;
+  --color-emerald-900: #022B28;
+
+  /* Aliasing legacy colors strictly to Emerald to prevent ANY blue/cyan leaks */
+  --color-blue-50: var(--color-emerald-50);
+  --color-blue-100: var(--color-emerald-100);
+  --color-blue-200: var(--color-emerald-200);
+  --color-blue-300: var(--color-emerald-300);
+  --color-blue-400: var(--color-emerald-400);
+  --color-blue-500: var(--color-emerald-500);
+  --color-blue-600: var(--color-emerald-600);
+  --color-blue-700: var(--color-emerald-700);
+  --color-blue-800: var(--color-emerald-800);
+  --color-blue-900: var(--color-emerald-900);
+  
+  --color-cyan-500: var(--color-emerald-400);
+  --color-teal-500: var(--color-emerald-300);
+  --color-indigo-500: var(--color-emerald-600);
+  --color-indigo-600: var(--color-emerald-700);
+  --color-amber-500: var(--color-emerald-400);
+  --color-rose-500: var(--color-emerald-600);
+
+  /* Neutrals overriding slate */
+  --color-slate-50: #F8FBFA;
+  --color-slate-100: #F3F8F7;
+  --color-slate-200: #DCE9E6;
+  --color-slate-300: #B9D3CE;
+  --color-slate-500: #64748B;
+  --color-slate-600: #475569;
+  --color-slate-900: #0F172A;
+}
+
+@layer components {
+  /* Fluid Typography & Container Constraints */
+  .premium-container {
+    @apply w-full mx-auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  @media (min-width: 768px) {
+    .premium-container {
+      max-width: 960px;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .premium-container {
+      max-width: 1200px;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+  }
+  @media (min-width: 1280px) {
+    .premium-container {
+      max-width: 1280px;
+    }
+  }
+  @media (min-width: 1536px) {
+    .premium-container {
+      max-width: 1440px;
+      padding-left: 64px;
+      padding-right: 64px;
+    }
+  }
+
+  /* Enterprise Card */
+  .card-enterprise {
+    @apply bg-white border border-slate-200 rounded-[20px] transition-all duration-300;
+  }
+  .card-enterprise:hover {
+    border-color: #A9D8D2;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  }
+
+  /* Enterprise Buttons */
+  .btn-primary {
+    @apply bg-blue-600 text-white font-semibold transition-all;
+    box-shadow: 0 12px 30px rgba(6, 97, 87, 0.18);
+  }
+  .btn-primary:hover {
+    @apply bg-blue-700;
+  }
+  .btn-secondary {
+    @apply bg-white border border-slate-200 text-slate-900 font-semibold transition-colors;
+  }
+  .btn-secondary:hover {
+    @apply bg-slate-100;
+  }
+  
+  /* Focus States for Accessibility */
+  *:focus-visible {
+    outline: 2px solid rgba(6, 97, 87, 0.25) !important;
+    outline-offset: 2px;
+  }
+}
+
+/* Accessibility & Easy Mode Scaling */
+.text-scale-large {
+  font-size: 110%;
+}
+
+.text-scale-xlarge {
+  font-size: 125%;
+}
+
+.easy-mode button {
+  min-height: 44px;
+  font-weight: 600;
+}
+
+.easy-mode input, .easy-mode select {
+  min-height: 44px;
+  font-size: 1rem;
+}
+
+.easy-mode .card, .easy-mode div[class*="rounded-2xl"] {
+  border-width: 2px !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Paper Print Support for School Staff */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  header, aside, button:not(.printable-button), .no-print {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  .shadow-2xs, .shadow-lg, .shadow-md {
+    box-shadow: none !important;
+  }
+  .border {
+    border-color: #000 !important;
+  }
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 15s ease infinite;
+  background-size: 200% 200%;
+}
+
+@layer components {
+  @media (prefers-reduced-motion: no-preference) {
+    .interaction-card {
+      @apply transition-all duration-[250ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:scale-[1.02] hover:shadow-lg hover:shadow-slate-200/50;
+    }
+    
+    .interaction-btn-primary {
+      @apply transition-all duration-[250ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:brightness-110 active:scale-95;
+    }
+    
+    .interaction-btn-secondary {
+      @apply transition-colors duration-150 ease-in-out hover:bg-slate-50 hover:border-slate-300;
+    }
+    
+    .interaction-row {
+      @apply transition-colors duration-150 ease-in-out hover:bg-slate-50 cursor-pointer;
+    }
+    
+    .interaction-icon-btn {
+      @apply transition-colors duration-150 ease-in-out hover:bg-slate-100 rounded-full flex items-center justify-center;
+    }
+    
+    .interaction-nav-item {
+      @apply transition-all duration-[250ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-slate-800/50;
+    }
+  }
+}
