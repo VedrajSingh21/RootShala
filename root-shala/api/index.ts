@@ -48,16 +48,21 @@ try {
     }
     serviceAccount = JSON.parse(envVal);
   } else {
-    const rawPath = path.join(process.cwd(), "eduone-2047-firebase-adminsdk-fbsvc-3a3f4a42f2.json");
-    serviceAccount = JSON.parse(fs.readFileSync(rawPath, "utf8"));
+    try {
+        serviceAccount = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'eduone-2047-firebase-adminsdk-fbsvc-3a3f4a42f2.json'), 'utf8'));
+    } catch (e) {
+        console.warn('Firebase service account key not found. Admin SDK will not be initialized.');
+    }
   }
 
-  initializeApp({
-    credential: cert(serviceAccount),
-    databaseURL: "https://eduone-2047-default-rtdb.firebaseio.com"
-  });
-  db = getDatabase();
-  console.log("[RootShala] Firebase Admin initialized successfully.");
+  if (serviceAccount) {
+    initializeApp({
+      credential: cert(serviceAccount),
+      databaseURL: "https://eduone-2047-default-rtdb.firebaseio.com"
+    });
+    db = getDatabase();
+    console.log("[RootShala] Firebase Admin initialized successfully.");
+  }
 } catch (error) {
   console.error("Firebase Admin SDK could not be initialized:", error);
 }
