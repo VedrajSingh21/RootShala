@@ -9,7 +9,8 @@ import {
   ScanLine,
   Wifi,
   Activity,
-  UserCheck
+  UserCheck,
+  Camera
 } from 'lucide-react';
 import { Html5Qrcode } from 'html5-qrcode';
 import { ref, get } from 'firebase/database';
@@ -35,6 +36,7 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [alertSentMap, setAlertSentMap] = useState<Record<string, boolean>>({});
   const [isScanning, setIsScanning] = useState(false);
+  const [cameraFacingMode, setCameraFacingMode] = useState<"environment" | "user">("environment");
   const [recentScans, setRecentScans] = useState<{ id: string, name: string, time: string, gate: string }[]>([]);
   const [availableClasses, setAvailableClasses] = useState<string[]>(['Grade 10-A']);
 
@@ -108,7 +110,7 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
     setTimeout(() => {
       if (!isComponentMounted) return;
       html5QrCode.start(
-        { facingMode: "environment" },
+        { facingMode: cameraFacingMode },
         { 
           fps: 10, 
           qrbox: { width: 250, height: 250 },
@@ -123,8 +125,9 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
       ).then(() => {
         started = true;
       }).catch(err => {
-        console.error("Environment camera failed, falling back to user camera", err);
-        if (isComponentMounted) {
+        console.error("Camera failed, falling back to other camera if needed", err);
+        // Only fallback if they haven't explicitly toggled it yet
+        if (isComponentMounted && cameraFacingMode === 'environment') {
           html5QrCode.start(
             { facingMode: "user" },
             { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1.0 },
@@ -134,6 +137,8 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
             () => {}
           ).then(() => {
             started = true;
+            // Update state to match what actually worked
+            setCameraFacingMode("user");
           }).catch(fallbackErr => {
              console.error("Failed to start any camera", fallbackErr);
           });
@@ -158,7 +163,7 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
         console.error("Error cleaning up scanner", e);
       }
     };
-  }, [isScanning, handleScanSuccess]);
+  }, [isScanning, handleScanSuccess, cameraFacingMode]);
 
   const [mockId, setMockId] = useState('');
 
@@ -226,9 +231,19 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
                   <p className="text-xs text-slate-400">Monitoring physical ID card scans...</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-xs font-semibold border border-emerald-500/30">
-                <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                ONLINE
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setCameraFacingMode(prev => prev === 'environment' ? 'user' : 'environment')}
+                  className="px-3 py-1 bg-slate-800 text-slate-300 hover:text-white rounded-lg text-xs font-semibold border border-slate-700 hover:border-slate-600 transition-all flex items-center gap-1.5 shadow-sm"
+                  title="Switch Camera (Front/Back)"
+                >
+                  <Camera className="w-3.5 h-3.5" />
+                  Flip
+                </button>
+                <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs font-semibold border border-emerald-500/30">
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                  ONLINE
+                </div>
               </div>
             </div>
 
