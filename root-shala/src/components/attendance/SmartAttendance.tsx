@@ -102,28 +102,49 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
 
     const html5QrCode = new Html5Qrcode("qr-reader");
     let isComponentMounted = true;
+    let started = false;
 
-    html5QrCode.start(
-      { facingMode: "user" },
-      { 
-        fps: 10, 
-        qrbox: { width: 250, height: 250 },
-        aspectRatio: 1.0
-      },
-      (decodedText) => {
+    // Small delay to ensure DOM is fully painted
+    setTimeout(() => {
+      if (!isComponentMounted) return;
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { 
+          fps: 10, 
+          qrbox: { width: 250, height: 250 },
+          aspectRatio: 1.0
+        },
+        (decodedText) => {
+          if (isComponentMounted) {
+            handleScanSuccess(decodedText);
+          }
+        },
+        (error) => {} // Ignore continuous scanning errors
+      ).then(() => {
+        started = true;
+      }).catch(err => {
+        console.error("Environment camera failed, falling back to user camera", err);
         if (isComponentMounted) {
-          handleScanSuccess(decodedText);
+          html5QrCode.start(
+            { facingMode: "user" },
+            { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1.0 },
+            (decodedText) => {
+              if (isComponentMounted) handleScanSuccess(decodedText);
+            },
+            () => {}
+          ).then(() => {
+            started = true;
+          }).catch(fallbackErr => {
+             console.error("Failed to start any camera", fallbackErr);
+          });
         }
-      },
-      (error) => {} // Ignore continuous scanning errors
-    ).catch(err => {
-      console.error("Failed to start QR scanner natively", err);
-    });
+      });
+    }, 100);
 
     return () => {
       isComponentMounted = false;
       try {
-        if (html5QrCode.isScanning) {
+        if (started || html5QrCode.isScanning) {
           html5QrCode.stop().then(() => html5QrCode.clear()).catch(console.error);
         } else {
           // If it was still starting up when unmounted, aggressively stop it after a delay
