@@ -138,6 +138,7 @@ export const APP_ROUTES: AppRoute[] = [
     id: 'admin-panel',
     title: 'Super Admin Panel',
     icon: Users,
+    permission: 'superadmin.only' as any,
     section: 'comms'
   },
   {

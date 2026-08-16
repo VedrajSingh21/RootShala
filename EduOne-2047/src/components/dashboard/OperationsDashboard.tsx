@@ -30,7 +30,7 @@ import {
   Pie,
   Cell
 } from 'recharts';
-import { AIActionLog, EscalationItem, CurrentUser } from '../../types';
+import { AIActionLog, EscalationItem, CurrentUser, CollaborativeTask } from '../../types';
 
 interface OperationsDashboardProps {
   onNavigate: (moduleId: string) => void;
@@ -40,6 +40,7 @@ interface OperationsDashboardProps {
   onOpenAddStudent: () => void;
   onOpenDocUpload: () => void;
   currentUser: CurrentUser | null;
+  tasks?: CollaborativeTask[];
 }
 
 export const OperationsDashboard: React.FC<OperationsDashboardProps> = ({
@@ -48,7 +49,8 @@ export const OperationsDashboard: React.FC<OperationsDashboardProps> = ({
   aiLogs,
   onOpenAddStudent,
   onOpenDocUpload,
-  currentUser
+  currentUser,
+  tasks = []
 }) => {
   // Chart Mock Data
   const attendanceData = [
@@ -525,36 +527,16 @@ export const OperationsDashboard: React.FC<OperationsDashboardProps> = ({
             <div className="bg-white rounded-xl p-4 border border-slate-200">
               <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Priority Tasks</h3>
               <div className="space-y-2">
-                <div className="flex items-start gap-2 text-sm p-2">
-                  <input type="checkbox" className="mt-1 rounded text-emerald-600 border-slate-300" />
-                  <span className="text-slate-700">
-                    {currentUser.role === 'IT Support' ? 'Review pending staff access requests'
-                    : currentUser.role === 'Librarian' ? 'Process new book arrivals'
-                    : currentUser.role === 'Transport Manager' ? 'Review Route 4B delay'
-                    : currentUser.role === 'Security Guard' ? 'Monitor main gate cameras'
-                    : currentUser.role === 'Counselor' ? 'Review student behavioral reports'
-                    : currentUser.role === 'Exam Coordinator' ? 'Finalize Mid-term seating plan'
-                    : (currentUser.role === 'Class Teacher' || currentUser.role === 'Subject Teacher') ? 'Review student assignments'
-                    : currentUser.role === 'Student' ? 'Complete Physics homework'
-                    : currentUser.role === 'Parent' ? 'Sign field trip permission slip'
-                    : 'Review pending staff access requests'}
-                  </span>
-                </div>
-                <div className="flex items-start gap-2 text-sm p-2">
-                  <input type="checkbox" className="mt-1 rounded text-emerald-600 border-slate-300" />
-                  <span className="text-slate-700">
-                    {currentUser.role === 'IT Support' ? 'Update firewall rules'
-                    : currentUser.role === 'Librarian' ? 'Send overdue notices'
-                    : currentUser.role === 'Transport Manager' ? 'Schedule bus maintenance'
-                    : currentUser.role === 'Security Guard' ? 'Verify vendor entry logs'
-                    : currentUser.role === 'Counselor' ? 'Prepare workshop material'
-                    : currentUser.role === 'Exam Coordinator' ? 'Distribute question papers'
-                    : (currentUser.role === 'Class Teacher' || currentUser.role === 'Subject Teacher') ? 'Submit weekly activity report'
-                    : currentUser.role === 'Student' ? 'Prepare for Math test'
-                    : currentUser.role === 'Parent' ? 'Check upcoming PTA meeting schedule'
-                    : 'Submit weekly activity report'}
-                  </span>
-                </div>
+                {tasks.filter(t => t.assignedRole === currentUser.role && t.status !== 'COMPLETED').map(task => (
+                  <div key={task.id} className="flex items-start gap-2 text-sm p-2">
+                    <input type="checkbox" className="mt-1 rounded text-emerald-600 border-slate-300" />
+                    <span className="text-slate-700 font-semibold">{task.title}</span>
+                    <span className="ml-auto text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">{task.priority}</span>
+                  </div>
+                ))}
+                {tasks.filter(t => t.assignedRole === currentUser.role && t.status !== 'COMPLETED').length === 0 && (
+                  <div className="text-slate-500 text-xs p-2 italic">No priority tasks assigned.</div>
+                )}
               </div>
             </div>
           </div>

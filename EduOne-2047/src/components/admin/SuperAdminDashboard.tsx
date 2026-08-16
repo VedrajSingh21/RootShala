@@ -20,11 +20,15 @@ export const SuperAdminDashboard: React.FC = () => {
 
   const fetchUsers = async () => {
     try {
-      const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, 'users'));
-      if (snapshot.exists()) {
-        const usersData = snapshot.val();
-        setUsers(Object.values(usersData));
+      const sessionToken = localStorage.getItem('sessionToken') || '';
+      const response = await fetch('/api/users', {
+        headers: {
+          'Authorization': `Bearer ${sessionToken}`
+        }
+      });
+      if (response.ok) {
+        const usersData = await response.json();
+        setUsers(usersData);
       }
     } catch (err) {
       console.error(err);

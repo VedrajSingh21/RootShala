@@ -237,6 +237,22 @@ app.post("/api/auth/reset-password", async (req, res) => {
 
 
 // 2. AI Command Center Endpoint
+
+// Fetch all users for Super Admin
+app.get("/api/users", async (req, res) => {
+  if (!db) {
+    return res.status(500).json({ error: "Firebase DB not initialized." });
+  }
+  try {
+    const usersSnapshot = await db.ref('users').once("value");
+    const usersData = usersSnapshot.exists() ? usersSnapshot.val() : {};
+    res.json(Object.values(usersData));
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+
 app.post("/api/ai/command", async (req, res) => {
   const { prompt, role = "Admin" } = req.body;
 
@@ -251,7 +267,7 @@ app.post("/api/ai/command", async (req, res) => {
   if (ai) {
     try {
       const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
+        model: "gemini-1.5-flash",
         contents: `You are RootShala AI Command Center engine for a school operations platform.
 User Role: ${role}
 Query: "${prompt}"
@@ -402,7 +418,7 @@ If a field cannot be found, return empty string or null and a confidence of 0.`;
     const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash",
       contents: [
         {
           role: 'user', parts: [
@@ -435,11 +451,19 @@ If a field cannot be found, return empty string or null and a confidence of 0.`;
 
 // 4. Timetable Generation Endpoint (CSP Solver)
 app.post("/api/timetable/generate", (req, res) => {
-  const { teachers } = req.body;
+  let teachers = req.body?.teachers;
+  if (typeof req.body === 'string') {
+    try {
+      teachers = JSON.parse(req.body).teachers;
+    } catch (e) {
+      // Ignore
+    }
+  }
 
   if (!teachers || !Array.isArray(teachers)) {
     return res.status(400).json({ error: "Invalid teachers data" });
   }
+
 
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   const periods = [1, 2, 3, 4, 5];
@@ -575,7 +599,7 @@ app.post("/api/ai/predict-risk", async (req, res) => {
     `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash",
       contents: `System Instruction: You are an AI data analyst for schools. Always return valid JSON.\n\n${prompt}`,
       config: { responseMimeType: "application/json" }
     });
@@ -616,7 +640,7 @@ app.post("/api/ai/lesson-plan", async (req, res) => {
     }`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash",
       contents: `System Instruction: You are an expert teacher and curriculum designer. Return only valid JSON.\n\n${prompt}`,
       config: { responseMimeType: "application/json" }
     });
@@ -658,7 +682,7 @@ app.post("/api/ai/briefing", async (req, res) => {
     }`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash",
       contents: prompt,
       config: { responseMimeType: "application/json" }
     });

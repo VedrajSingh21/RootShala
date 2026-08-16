@@ -26,7 +26,26 @@ export const NoticeBoard: React.FC<NoticeBoardProps> = ({ currentRole }) => {
           <p className="text-slate-500 font-medium mt-1">School-wide announcements and internal staff communications.</p>
         </div>
         {canManageNotices && (
-          <button className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
+          <button 
+            onClick={() => {
+              const title = window.prompt("Enter notice title:");
+              if (!title) return;
+              const content = window.prompt("Enter notice content:");
+              if (!content) return;
+              const type = window.prompt("Enter notice type (Academic, Holiday, Internal):", "Internal") || "Internal";
+              
+              const newNotice = {
+                id: Date.now().toString(),
+                title,
+                content,
+                date: new Date().toISOString().split('T')[0],
+                author: currentRole,
+                type
+              };
+              setNotices([newNotice, ...notices]);
+            }}
+            className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition-all flex items-center gap-2"
+          >
             <Plus className="w-4 h-4" />
             Post Notice
           </button>

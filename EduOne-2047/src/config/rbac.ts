@@ -32,7 +32,7 @@ export const PERMISSIONS = {
 export type Permission = typeof PERMISSIONS[keyof typeof PERMISSIONS];
 
 export const ROLE_PERMISSIONS: Record<string, string[]> = {
-  'Super Admin': Object.values(PERMISSIONS),
+  'Super Admin': [...Object.values(PERMISSIONS), 'superadmin.only'],
 
   'Principal': [
     PERMISSIONS.DASHBOARD_VIEW_FULL,

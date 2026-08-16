@@ -619,7 +619,7 @@ function CoreApplication() {
 
         {/* Main Workspace Area */}
         <main className="flex-1 overflow-y-auto bg-slate-50/50 p-4 md:p-6 lg:p-8 relative">
-          {activeModule === 'admin-panel' && canAccess(currentUser, PERMISSIONS.USERS_MANAGE_ALL) && (
+          {activeModule === 'admin-panel' && canAccess(currentUser, 'superadmin.only' as any) && (
             <SuperAdminDashboard />
           )}
 
@@ -634,6 +634,7 @@ function CoreApplication() {
               onOpenCommandCenter={handleOpenCommandCenter}
               escalations={escalations}
               aiLogs={aiLogs}
+              tasks={tasks}
               onOpenAddStudent={() => setActiveModule('students')}
               onOpenDocUpload={() => setActiveModule('documents')}
             />
@@ -703,7 +704,10 @@ function CoreApplication() {
 
           {activeModule === 'fees' && (
             <SmartFeeManagement
-              feeRecords={fees}
+              feeRecords={currentUser?.role === 'Class Teacher' ? fees.filter(f => {
+                const currentTeacher = teachers.find(t => t.id === currentUser.id);
+                return f.gradeClass === currentTeacher?.homeroomClass;
+              }) : fees}
               students={students}
               onUploadReceipt={handleUploadReceipt}
               onResolveMismatch={handleResolveMismatch}

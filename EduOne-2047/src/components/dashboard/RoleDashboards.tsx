@@ -1,6 +1,6 @@
 import React from 'react';
 import { OperationsDashboard } from './OperationsDashboard';
-import { CurrentUser, AIActionLog, EscalationItem } from '../../types';
+import { CurrentUser, AIActionLog, EscalationItem, CollaborativeTask } from '../../types';
 
 interface DashboardProps {
   onNavigate: (moduleId: string) => void;
@@ -10,6 +10,7 @@ interface DashboardProps {
   onOpenAddStudent: () => void;
   onOpenDocUpload: () => void;
   currentUser: CurrentUser | null;
+  tasks?: CollaborativeTask[];
 }
 
 export const PrincipalDashboard: React.FC<DashboardProps> = (props) => <OperationsDashboard {...props} />;
