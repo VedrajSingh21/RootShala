@@ -148,7 +148,7 @@ export const AITimetable: React.FC<AITimetableProps> = ({
 
       {/* Calendar Grid View (Google Calendar Style) */}
       <div className="rounded-2xl bg-white border border-slate-200/90 shadow-2xs overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto w-full">
           <table className="w-full text-left border-collapse min-w-[700px]">
             <thead className="bg-emerald-50 text-emerald-800">
               <tr className="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">

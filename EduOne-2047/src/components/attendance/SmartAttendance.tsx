@@ -406,7 +406,7 @@ export const SmartAttendance: React.FC<SmartAttendanceProps> = ({
 
       {/* Attendance Roster Table */}
       <div className={`rounded-2xl bg-white border border-slate-200/90 shadow-2xs overflow-hidden interaction-card ${isScanning ? 'opacity-70 pointer-events-none' : ''}`}>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto w-full">
           <table className="w-full text-left border-collapse">
             <thead className="bg-emerald-50 text-emerald-800">
               <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">

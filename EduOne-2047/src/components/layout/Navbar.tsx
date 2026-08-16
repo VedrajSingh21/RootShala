@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/85 backdrop-blur-[14px] border-b border-slate-200 px-3 lg:px-6 py-2 transition-all shadow-sm">
+    <header className="sticky top-0 z-40 glass-panel border-b border-slate-200/50 px-3 lg:px-6 py-2 transition-all">
       <div className="premium-container flex flex-row items-center justify-between gap-2 md:gap-3">
         
         {/* Brand & Mobile Menu Toggle */}

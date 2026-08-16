@@ -102,11 +102,6 @@ app.post("/api/auth/login", async (req, res) => {
       // Fallback for un-migrated plain text passwords
       isMatch = (password === userData.password);
     }
-    
-    // Master demo fallback for Vercel sandbox testing
-    if (!isMatch && password === 'password123') {
-      isMatch = true;
-    }
 
     console.log(`[Login] User ${staffId} found. Password match: ${isMatch}`);
 

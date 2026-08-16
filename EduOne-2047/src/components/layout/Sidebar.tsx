@@ -39,7 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       )}
       
       <aside 
-        className={`bg-white border-r border-slate-200 p-4 flex flex-col justify-between shrink-0 shadow-sm z-50 overflow-y-auto w-64 transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 md:sticky md:top-0 md:h-screen ${
+        className={`glass-panel border-r border-slate-200/50 p-4 flex flex-col justify-between shrink-0 shadow-sm z-50 overflow-y-auto w-64 transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 md:sticky md:top-0 md:h-screen ${
           isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
