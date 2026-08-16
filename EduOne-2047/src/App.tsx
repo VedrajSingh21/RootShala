@@ -16,6 +16,7 @@ import { AIDocumentCenter } from './components/documents/AIDocumentCenter';
 import { AITimetable } from './components/timetable/AITimetable';
 import { NeedsAttention } from './components/escalations/NeedsAttention';
 import { ReportsAnalytics } from './components/analytics/ReportsAnalytics';
+import { StudentRadar } from './components/analytics/StudentRadar';
 import { CollaborativeTaskManager } from './components/tasks/CollaborativeTaskManager';
 import { GmailCommsCenter } from './components/gmail/GmailCommsCenter';
 import { LoginForm } from './components/auth/LoginForm';
@@ -744,6 +745,17 @@ function CoreApplication() {
 
           {activeModule === 'reports' && (
             <ReportsAnalytics supplyItems={supplyItems} />
+          )}
+
+          {activeModule === 'student-radar' && (
+            <StudentRadar
+              students={students}
+              attendanceRecords={Object.values(attendanceRecords)}
+              fees={Object.values(fees)}
+              onTriggerIntervention={(studentName) => {
+                handleSendParentAlert(studentName, 'Parent', 'High risk of dropout or failure flagged by AI Radar.');
+              }}
+            />
           )}
 
           {activeModule === 'tasks' && (

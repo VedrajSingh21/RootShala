@@ -11,7 +11,8 @@ import {
   BarChart3,
   CheckSquare,
   Mail,
-  Settings
+  Settings,
+  Radar
 } from 'lucide-react';
 import { PERMISSIONS, Permission } from './rbac';
 
@@ -124,6 +125,13 @@ export const APP_ROUTES: AppRoute[] = [
     title: 'Reports & Analytics',
     icon: BarChart3,
     // Reports view is Phase 2, mapped to dashboard full for now
+    permission: PERMISSIONS.DASHBOARD_VIEW_FULL,
+    section: 'comms'
+  },
+  {
+    id: 'student-radar',
+    title: 'Predictive Student Radar',
+    icon: Radar,
     permission: PERMISSIONS.DASHBOARD_VIEW_FULL,
     section: 'comms'
   },
