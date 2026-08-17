@@ -20,18 +20,35 @@ app.use((req, res, next) => {
   }
 });
 
-// Initialize Gemini Client
-const apiKey = process.env.GEMINI_API_KEY || "";
-let ai: GoogleGenAI | null = null;
-if (apiKey) {
-  ai = new GoogleGenAI({
-    apiKey,
-    httpOptions: {
-      headers: {
-        "User-Agent": "aistudio-build",
-      },
-    },
+// Initialize Gemini Clients for Fallback
+const apiKey1 = process.env.GEMINI_API_KEY_1 || process.env.GEMINI_API_KEY || "";
+const apiKey2 = process.env.GEMINI_API_KEY_2 || "";
+
+const getGeminiInstance = (key: string) => {
+  if (!key) return null;
+  return new GoogleGenAI({
+    apiKey: key,
+    httpOptions: { headers: { "User-Agent": "aistudio-build" } },
   });
+};
+
+let ai1: GoogleGenAI | null = getGeminiInstance(apiKey1);
+let ai2: GoogleGenAI | null = getGeminiInstance(apiKey2);
+
+// Wrapper to handle automatic fallback on 429 Quota Exceeded
+async function generateGeminiContent(params: any): Promise<any> {
+  if (!ai1 && !ai2) throw new Error("No Gemini API keys configured");
+  
+  try {
+    if (!ai1) throw new Error("Key 1 missing");
+    return await ai1.models.generateContent(params);
+  } catch (err: any) {
+    if (ai2 && (err?.status === 429 || err?.message?.includes("429") || err?.message?.includes("quota") || err?.message?.includes("RESOURCE_EXHAUSTED") || !ai1)) {
+      console.warn("[RootShala AI] Key 1 failed with Quota/429 error. Falling back to Key 2...");
+      return await ai2.models.generateContent(params);
+    }
+    throw err;
+  }
 }
 
 // Initialize Firebase Admin
@@ -69,7 +86,7 @@ try {
 
 // 1. Health check
 app.get("/api/health", (_req, res) => {
-  res.json({ status: "ok", geminiEnabled: !!apiKey, app: "RootShala" });
+  res.json({ status: "ok", geminiEnabled: !!(ai1 || ai2), app: "RootShala" });
 });
 
 // Auth: Login
@@ -259,9 +276,9 @@ app.post("/api/ai/command", async (req, res) => {
   const normalizedPrompt = prompt.toLowerCase().trim();
 
   // Primary Gemini Execution if available
-  if (ai) {
+  if (ai1 || ai2) {
     try {
-      const response = await ai.models.generateContent({
+      const response = await generateGeminiContent({
         model: "gemini-1.5-flash",
         contents: `You are RootShala AI Command Center engine for a school operations platform.
 User Role: ${role}
@@ -412,7 +429,7 @@ If a field cannot be found, return empty string or null and a confidence of 0.`;
   try {
     const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
 
-    const response = await ai.models.generateContent({
+    const response = await generateGeminiContent({
       model: "gemini-1.5-flash",
       contents: [
         {
@@ -574,7 +591,7 @@ app.post("/api/timetable/generate", (req, res) => {
 
 app.post("/api/ai/predict-risk", async (req, res) => {
   try {
-    if (!ai) return res.status(503).json({ error: "Gemini AI not configured" });
+    if (!ai1 && !ai2) return res.status(503).json({ error: "Gemini AI not configured" });
     const { students, attendance, tasks } = req.body;
     
     const prompt = `You are EduPredict, an AI Student Success predictor. Analyze the following student data. Return a JSON object mapping each student ID to a prediction object. The object must match this schema:
@@ -593,7 +610,7 @@ app.post("/api/ai/predict-risk", async (req, res) => {
     Tasks: ${JSON.stringify(tasks).slice(0, 1000)}
     `;
 
-    const response = await ai.models.generateContent({
+    const response = await generateGeminiContent({
       model: "gemini-1.5-flash",
       contents: `System Instruction: You are an AI data analyst for schools. Always return valid JSON.\n\n${prompt}`,
       config: { responseMimeType: "application/json" }
@@ -614,7 +631,7 @@ app.post("/api/ai/predict-risk", async (req, res) => {
 
 app.post("/api/ai/lesson-plan", async (req, res) => {
   try {
-    if (!ai) return res.status(503).json({ error: "Gemini AI not configured" });
+    if (!ai1 && !ai2) return res.status(503).json({ error: "Gemini AI not configured" });
     const { topic, grade, duration } = req.body;
 
     const prompt = `Generate a lesson plan and quiz for ${topic} for class ${grade} lasting ${duration} minutes in an Indian CBSE/ICSE context.
@@ -634,7 +651,7 @@ app.post("/api/ai/lesson-plan", async (req, res) => {
       ]
     }`;
 
-    const response = await ai.models.generateContent({
+    const response = await generateGeminiContent({
       model: "gemini-1.5-flash",
       contents: `System Instruction: You are an expert teacher and curriculum designer. Return only valid JSON.\n\n${prompt}`,
       config: { responseMimeType: "application/json" }
@@ -655,7 +672,7 @@ app.post("/api/ai/lesson-plan", async (req, res) => {
 
 app.post("/api/ai/briefing", async (req, res) => {
   try {
-    if (!ai) return res.status(503).json({ error: "Gemini AI not configured" });
+    if (!ai1 && !ai2) return res.status(503).json({ error: "Gemini AI not configured" });
     const { role, stats } = req.body;
 
     const prompt = `You are the AI Operations Director for EduOne school management system.
@@ -676,7 +693,7 @@ app.post("/api/ai/briefing", async (req, res) => {
       ]
     }`;
 
-    const response = await ai.models.generateContent({
+    const response = await generateGeminiContent({
       model: "gemini-1.5-flash",
       contents: prompt,
       config: { responseMimeType: "application/json" }
@@ -692,6 +709,55 @@ app.post("/api/ai/briefing", async (req, res) => {
   } catch (e) {
     console.error("Briefing Error:", e);
     res.status(500).json({ error: "Failed to generate briefing" });
+  }
+});
+
+// Text-to-Speech Endpoint
+app.post("/api/tts", async (req, res) => {
+  const { text } = req.body;
+  if (!text) {
+    return res.status(400).json({ error: "Missing text" });
+  }
+
+  const ttsKey = process.env.TTS_API_KEY;
+  if (!ttsKey) {
+    return res.status(503).json({ error: "TTS API key not configured" });
+  }
+
+  try {
+    const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM', {
+      method: 'POST',
+      headers: {
+        'xi-api-key': ttsKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text,
+        model_id: "eleven_monolingual_v1",
+        voice_settings: {
+          stability: 0.5,
+          similarity_boost: 0.5
+        }
+      })
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error("[TTS Error]", errText);
+      return res.status(response.status).json({ error: "TTS provider error" });
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    
+    res.set({
+      'Content-Type': 'audio/mpeg',
+      'Content-Length': buffer.length
+    });
+    res.send(buffer);
+  } catch (error) {
+    console.error("[TTS API Exception]", error);
+    res.status(500).json({ error: "Internal server error during TTS" });
   }
 });
 
