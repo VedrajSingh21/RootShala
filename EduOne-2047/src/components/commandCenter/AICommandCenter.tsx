@@ -57,7 +57,7 @@ export const AICommandCenter: React.FC<AICommandCenterProps> = ({
     { label: 'Send fee reminders', prompt: 'Send fee reminders to parents with overdue balances' }
   ].filter(p => {
     if (p.label === 'Generate timetable') {
-      return currentUser.role === 'Super Admin' || currentUser.role === 'Principal';
+      return currentRole === 'Super Admin' || currentRole === 'Principal';
     }
     return true;
   });
