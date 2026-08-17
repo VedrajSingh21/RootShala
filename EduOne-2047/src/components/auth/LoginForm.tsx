@@ -110,7 +110,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, prefillId }) => {
       {/* Back to Home Button */}
       <button 
         onClick={() => navigate('/')}
-        className="absolute top-6 left-6 sm:top-8 sm:left-8 flex items-center gap-2 px-4 py-2 bg-white/60 hover:bg-white backdrop-blur-md rounded-xl text-slate-700 font-bold shadow-sm transition-all z-20 hover:scale-105 active:scale-95 border border-slate-200/50"
+        className="absolute top-6 left-6 sm:top-8 sm:left-8 flex items-center gap-2 px-4 py-2 bg-white/60 hover:bg-white backdrop-blur-md rounded-xl text-slate-700 font-bold shadow-sm transition-all z-20 border border-slate-200/50"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Home</span>

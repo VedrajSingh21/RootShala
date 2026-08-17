@@ -33,7 +33,7 @@ export const ExamsManagement: React.FC<ExamsManagementProps> = ({ students }) =>
             <Upload className="w-4 h-4" />
             Import CSV
           </button>
-          <button className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
+          <button className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-xl hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
             <Plus className="w-4 h-4" />
             Create Exam
           </button>

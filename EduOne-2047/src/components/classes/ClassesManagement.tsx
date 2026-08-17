@@ -24,7 +24,7 @@ export const ClassesManagement: React.FC<ClassesManagementProps> = ({ teachers }
           </h1>
           <p className="text-slate-500 font-medium mt-1">Manage school divisions, sections, and homeroom teachers.</p>
         </div>
-        <button className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
+        <button className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-xl hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
           <Plus className="w-4 h-4" />
           Add New Class
         </button>
@@ -34,7 +34,7 @@ export const ClassesManagement: React.FC<ClassesManagementProps> = ({ teachers }
         {classes.map((cls) => {
           const homeroomTeacher = teachers.find(t => t.id === cls.homeroomTeacherId);
           return (
-            <div key={cls.id} className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div key={cls.id} className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm transition-shadow">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="text-xl font-bold text-slate-800">{cls.grade}-{cls.section}</h3>

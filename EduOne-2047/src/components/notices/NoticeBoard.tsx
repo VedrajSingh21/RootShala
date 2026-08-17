@@ -44,7 +44,7 @@ export const NoticeBoard: React.FC<NoticeBoardProps> = ({ currentRole }) => {
               };
               setNotices([newNotice, ...notices]);
             }}
-            className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition-all flex items-center gap-2"
+            className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold rounded-xl hover:shadow-emerald-500/30 transition-all flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             Post Notice

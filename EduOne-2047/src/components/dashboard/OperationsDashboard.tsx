@@ -562,7 +562,7 @@ export const OperationsDashboard: React.FC<OperationsDashboardProps> = ({
             onClick={() => onNavigate('attendance')}
             className="p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 text-emerald-950 font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5 text-center shadow-2xs group"
           >
-            <CheckCircle2 className="w-5 h-5 text-emerald-700 group-hover:scale-110 transition-transform" />
+            <CheckCircle2 className="w-5 h-5 text-emerald-700 transition-transform" />
             <span>Mark Attendance</span>
           </button>
 
@@ -570,7 +570,7 @@ export const OperationsDashboard: React.FC<OperationsDashboardProps> = ({
             onClick={() => onNavigate('teachers')}
             className="p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 text-emerald-950 font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5 text-center shadow-2xs group"
           >
-            <GraduationCap className="w-5 h-5 text-emerald-700 group-hover:scale-110 transition-transform" />
+            <GraduationCap className="w-5 h-5 text-emerald-700 transition-transform" />
             <span>Find Substitute</span>
           </button>
 
@@ -578,7 +578,7 @@ export const OperationsDashboard: React.FC<OperationsDashboardProps> = ({
             onClick={() => onNavigate('fees')}
             className="p-3 rounded-xl bg-purple-50 hover:bg-purple-100 border-2 border-purple-300 text-purple-950 font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5 text-center shadow-2xs group"
           >
-            <Receipt className="w-5 h-5 text-purple-700 group-hover:scale-110 transition-transform" />
+            <Receipt className="w-5 h-5 text-purple-700 transition-transform" />
             <span>Collect Fee & Receipt</span>
           </button>
 
@@ -586,7 +586,7 @@ export const OperationsDashboard: React.FC<OperationsDashboardProps> = ({
             onClick={onOpenDocUpload}
             className="p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 text-emerald-950 font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5 text-center shadow-2xs group"
           >
-            <Upload className="w-5 h-5 text-emerald-700 group-hover:scale-110 transition-transform" />
+            <Upload className="w-5 h-5 text-emerald-700 transition-transform" />
             <span>Scan Admission Form</span>
           </button>
 
@@ -594,7 +594,7 @@ export const OperationsDashboard: React.FC<OperationsDashboardProps> = ({
             onClick={onOpenAddStudent}
             className="p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 text-emerald-950 font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5 text-center shadow-2xs group"
           >
-            <Plus className="w-5 h-5 text-emerald-700 group-hover:scale-110 transition-transform" />
+            <Plus className="w-5 h-5 text-emerald-700 transition-transform" />
             <span>Add Student</span>
           </button>
 
@@ -602,7 +602,7 @@ export const OperationsDashboard: React.FC<OperationsDashboardProps> = ({
             onClick={() => window.print()}
             className="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 text-slate-900 font-bold text-xs transition-all flex flex-col items-center justify-center gap-1.5 text-center shadow-2xs group"
           >
-            <Calendar className="w-5 h-5 text-slate-700 group-hover:scale-110 transition-transform" />
+            <Calendar className="w-5 h-5 text-slate-700 transition-transform" />
             <span>Print Report</span>
           </button>
         </div>

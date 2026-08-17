@@ -98,7 +98,7 @@ export function AIRiskRadar({ students, attendance, tasks }: AIRiskRadarProps) {
             if (!student) return null;
 
             return (
-              <div key={studentId} className={`p-6 rounded-2xl border backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] ${getRiskColor(prediction.riskLevel)}`}>
+              <div key={studentId} className={`p-6 rounded-2xl border backdrop-blur-xl transition-all duration-300 ${getRiskColor(prediction.riskLevel)}`}>
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 className="text-lg font-bold text-white">{student.name}</h3>

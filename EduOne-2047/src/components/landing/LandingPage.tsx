@@ -159,7 +159,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
           <div className="flex items-center gap-4">
             <button
               onClick={() => onOpenLogin()}
-              className="px-6 py-2.5 text-sm font-semibold rounded-xl flex items-center gap-2 text-white bg-[#066157] hover:bg-[#055248] shadow-[0_12px_30px_rgba(6,97,87,0.18)] transition-all hover:-translate-y-0.5"
+              className="px-6 py-2.5 text-sm font-semibold rounded-xl flex items-center gap-2 text-white bg-[#066157] hover:bg-[#055248] shadow-[0_12px_30px_rgba(6,97,87,0.18)] transition-all"
             >
               <span>Login</span>
               <ArrowRight className="w-4 h-4" />
@@ -227,7 +227,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <motion.button
               variants={fadeUpVariant}
-              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => onOpenLogin()}
               className="w-full sm:w-auto px-8 py-4 text-sm rounded-2xl flex items-center justify-center gap-2 btn-primary"
@@ -238,7 +237,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
             </motion.button>
             <motion.a
               variants={fadeUpVariant}
-              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href="#capabilities"
               className="w-full sm:w-auto px-8 py-4 text-sm rounded-2xl text-center btn-secondary"
@@ -375,7 +373,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
               <motion.div 
                 key={i}
                 variants={scaleUpVariant}
-                className="flex items-center gap-6 bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300"
+                className="flex items-center gap-6 bg-white p-6 rounded-2xl shadow-sm border border-slate-200 transition-all duration-300"
               >
                 <div className="w-12 h-12 shrink-0 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
                   <step.icon className="w-6 h-6" />
@@ -409,7 +407,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
               {inboxTasks.map((task, i) => (
                 <div 
                   key={i} 
-                  className={`p-5 card-enterprise border ${i === inboxStep ? 'border-emerald-300 shadow-lg scale-[1.02]' : 'border-slate-200 shadow-sm opacity-60'} transition-all duration-300 flex items-start gap-4 hover:-translate-y-1 hover:shadow-md cursor-default`}
+                  className={`p-5 card-enterprise border ${i === inboxStep ? 'border-emerald-300 shadow-lg' : 'border-slate-200 shadow-sm opacity-60'} transition-all duration-300 flex items-start gap-4 cursor-default`}
                 >
                   <div className={`w-10 h-10 shrink-0 rounded-full ${task.bg} ${task.color} flex items-center justify-center`}>
                     <task.icon className="w-5 h-5" />
@@ -594,37 +592,37 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
           </motion.div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid md:grid-cols-3 gap-6">
-            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise hover:-translate-y-1 hover:shadow-md transition-all">
+            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise transition-all">
               <Building2 className="w-8 h-8 text-emerald-600 mb-4" />
               <h3 className="font-bold text-slate-900 mb-2">Multi-Board Support</h3>
               <p className="text-sm text-slate-600">Native structures mapping exactly to CBSE, ICSE, and State Board academic formatting requirements.</p>
             </motion.div>
 
-            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise hover:-translate-y-1 hover:shadow-md transition-all">
+            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise transition-all">
               <CreditCard className="w-8 h-8 text-emerald-600 mb-4" />
               <h3 className="font-bold text-slate-900 mb-2">Indian Fee Structures</h3>
               <p className="text-sm text-slate-600">Complex handling built-in: tuition + transport + sibling discounts + late fines modeled in a real ledger format.</p>
             </motion.div>
 
-            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise hover:-translate-y-1 hover:shadow-md transition-all">
+            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise transition-all">
               <MessageCircle className="w-8 h-8 text-green-500 mb-4" />
               <h3 className="font-bold text-slate-900 mb-2">WhatsApp-First Comm</h3>
               <p className="text-sm text-slate-600">Parent notifications default to WhatsApp, ensuring read-receipts and immediate visibility over standard email.</p>
             </motion.div>
 
-            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise hover:-translate-y-1 hover:shadow-md transition-all">
+            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise transition-all">
               <Users className="w-8 h-8 text-emerald-600 mb-4" />
               <h3 className="font-bold text-slate-900 mb-2">RTE Quota Tracking</h3>
               <p className="text-sm text-slate-600">Automated flagging for RTE students and scholarship-eligibility to ensure compliance without manual spreadsheets.</p>
             </motion.div>
 
-            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise hover:-translate-y-1 hover:shadow-md transition-all">
+            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise transition-all">
               <Globe className="w-8 h-8 text-orange-500 mb-4" />
               <h3 className="font-bold text-slate-900 mb-2">Vernacular Support</h3>
               <p className="text-sm text-slate-600">Core communication templates support Hindi and regional vernacular languages for parent inclusion.</p>
             </motion.div>
 
-            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise hover:-translate-y-1 hover:shadow-md transition-all">
+            <motion.div variants={scaleUpVariant} className="p-6 card-enterprise transition-all">
               <Wifi className="w-8 h-8 text-slate-600 mb-4" />
               <h3 className="font-bold text-slate-900 mb-2">Tier 2/3 Connectivity</h3>
               <p className="text-sm text-slate-600">Lightweight payloads and optimistic UI updates ensure the app remains responsive on patchy 4G connections.</p>
@@ -646,7 +644,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
                 key={i} 
                 initial="hidden" whileInView="visible" viewport={{ once: true }} 
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { delay: i * 0.1 } } }}
-                className="bg-slate-50 border border-slate-200 rounded-[20px] p-6 flex flex-col hover:-translate-y-1.5 hover:shadow-xl transition-all duration-200 group"
+                className="bg-slate-50 border border-slate-200 rounded-[20px] p-6 flex flex-col transition-all duration-200 group"
               >
                 <div className="mb-4">
                   <span className="px-2.5 py-1 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded uppercase tracking-wider">
@@ -706,7 +704,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
           <h2 className="text-3xl font-black text-slate-900 mb-6">Ready to Automate Your School?</h2>
           <button
             onClick={() => onOpenLogin()}
-            className="px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-2xl shadow-xl shadow-emerald-600/30 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 mx-auto mb-16"
+            className="px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-2xl transition-all flex items-center justify-center gap-2 mx-auto mb-16"
           >
             <Bot className="w-4 h-4" />
             <span>Login</span>
