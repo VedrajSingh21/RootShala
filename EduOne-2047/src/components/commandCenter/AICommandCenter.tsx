@@ -55,7 +55,12 @@ export const AICommandCenter: React.FC<AICommandCenterProps> = ({
     { label: 'Read admission forms', prompt: 'Read admission forms and extract data via OCR' },
     { label: 'Find absent teachers', prompt: 'Find today absent teachers and recommend substitute' },
     { label: 'Send fee reminders', prompt: 'Send fee reminders to parents with overdue balances' }
-  ];
+  ].filter(p => {
+    if (p.label === 'Generate timetable') {
+      return currentUser.role === 'Super Admin' || currentUser.role === 'Principal';
+    }
+    return true;
+  });
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

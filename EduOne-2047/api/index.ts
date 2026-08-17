@@ -305,6 +305,18 @@ Return STRICT valid JSON only.`,
       if (responseText) {
         try {
           const parsed = JSON.parse(responseText);
+          if (parsed.actionType === "TIMETABLE_GENERATE" && role !== "Super Admin" && role !== "Principal") {
+            res.json({
+              text: "I cannot generate timetables for you. Only Super Admins and Principals have permission to do this.",
+              summary: "Permission Denied",
+              confidenceScore: 100,
+              reason: "Role-based access control restriction.",
+              source: "Security Module",
+              actionType: "GENERAL_QUERY",
+              requiresApproval: false
+            });
+            return;
+          }
           res.json(parsed);
           return;
         } catch {
@@ -329,15 +341,27 @@ Return STRICT valid JSON only.`,
   };
 
   if (normalizedPrompt.includes("timetable") || normalizedPrompt.includes("schedule")) {
-    result = {
-      text: "Scanned all 28 teacher schedules, room capacities, and lecture caps. Generated conflict-free timetable for Grades 8-12 with zero overlap. 1 substitute auto-assigned for Mrs. Sunita Deshmukh.",
-      summary: "Generated conflict-free timetable for all 18 classes",
-      confidenceScore: 98,
-      reason: "All teacher workloads within max 5 lectures/day rule & zero room collisions.",
-      source: "Timetable Agent",
-      actionType: "TIMETABLE_GENERATE",
-      requiresApproval: false,
-    };
+    if (role !== "Super Admin" && role !== "Principal") {
+      result = {
+        text: "I cannot generate timetables for you. Only Super Admins and Principals have permission to do this.",
+        summary: "Permission Denied",
+        confidenceScore: 100,
+        reason: "Role-based access control restriction.",
+        source: "Security Module",
+        actionType: "GENERAL_QUERY",
+        requiresApproval: false,
+      };
+    } else {
+      result = {
+        text: "Scanned all 28 teacher schedules, room capacities, and lecture caps. Generated conflict-free timetable for Grades 8-12 with zero overlap. 1 substitute auto-assigned for Mrs. Sunita Deshmukh.",
+        summary: "Generated conflict-free timetable for all 18 classes",
+        confidenceScore: 98,
+        reason: "All teacher workloads within max 5 lectures/day rule & zero room collisions.",
+        source: "Timetable Agent",
+        actionType: "TIMETABLE_GENERATE",
+        requiresApproval: false,
+      };
+    }
   } else if (normalizedPrompt.includes("defaulter") || normalizedPrompt.includes("pending fee") || normalizedPrompt.includes("overdue")) {
     result = {
       text: "Identified 3 fee defaulters: Kabir Mehta (₹48,000 overdue), Rohan Gupta (₹25,000 pending), and Ananya Verma (₹15,000 pending with ₹3,000 receipt mismatch). Total outstanding: ₹88,000.",
@@ -495,7 +519,12 @@ app.post("/api/timetable/generate", (req, res) => {
   const LECTURES_PER_CLASS_PER_WEEK = 4;
 
   teachers.forEach(t => {
-    (t.teachingClasses || []).forEach((c: string) => {
+    let classes = t.teachingClasses || [];
+    if (classes.length === 0) {
+      // Fallback classes if none assigned, to prevent 0-lesson failure
+      classes = ["Class 10-A", "Class 9-B"];
+    }
+    classes.forEach((c: string) => {
       for (let i = 0; i < LECTURES_PER_CLASS_PER_WEEK; i++) {
         lessons.push({
           id: `L-${t.id}-${c}-${i}`,
