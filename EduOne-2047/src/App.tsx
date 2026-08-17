@@ -666,6 +666,7 @@ function CoreApplication() {
               initialPrompt={initialCommandPrompt}
               aiLogs={aiLogs}
               onExecuteSystemAction={handleExecuteSystemAction}
+              onNavigateToTimetable={() => setActiveModule('timetable')}
             />
           )}
 

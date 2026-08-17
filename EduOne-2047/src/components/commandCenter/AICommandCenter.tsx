@@ -19,12 +19,14 @@ interface AICommandCenterProps {
   initialPrompt?: string;
   aiLogs: AIActionLog[];
   onExecuteSystemAction: (actionType: string, actionData?: any) => void;
+  onNavigateToTimetable?: () => void;
 }
 
 export const AICommandCenter: React.FC<AICommandCenterProps> = ({
   currentRole,
   initialPrompt,
-  onExecuteSystemAction
+  onExecuteSystemAction,
+  onNavigateToTimetable
 }) => {
   const [messages, setMessages] = useState<CommandMessage[]>([
     {
@@ -293,6 +295,15 @@ export const AICommandCenter: React.FC<AICommandCenterProps> = ({
                         <AlertTriangle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                         <span>Escalated to Needs Attention for human approval.</span>
                       </div>
+                    )}
+                    
+                    {msg.actionResult.type === 'TIMETABLE_GENERATE' && onNavigateToTimetable && (
+                      <button
+                        onClick={onNavigateToTimetable}
+                        className="mt-3 w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm"
+                      >
+                        View Full Timetable
+                      </button>
                     )}
                   </div>
                 )}
