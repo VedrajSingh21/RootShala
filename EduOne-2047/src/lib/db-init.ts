@@ -65,6 +65,20 @@ export const initializeDatabase = async () => {
         role: "Receptionist",
         name: "Sneha Reddy",
         email: "rec-114@rootshala.local"
+      },
+      "IT-999": {
+        id: "IT-999",
+        password: "admin@999",
+        role: "IT Support",
+        name: "Arjun Tech",
+        email: "it-999@rootshala.local"
+      },
+      "TCH-105": {
+        id: "TCH-105",
+        password: "karan@105",
+        role: "Subject Teacher",
+        name: "Karan Singh",
+        email: "tch-105@rootshala.local"
       }
     };
 
