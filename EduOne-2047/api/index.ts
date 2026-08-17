@@ -6,6 +6,7 @@ import { getDatabase, ServerValue } from "firebase-admin/database";
 import fs from "fs";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
+import 'dotenv/config';
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5174;
