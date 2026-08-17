@@ -31,11 +31,45 @@ RootShala integrates **Google Gemini 1.5** to automate heavy administrative work
 - **Automated Timetable Generation**: A powerful CSP (Constraint Satisfaction Problem) AI solver that can generate an entire school's weekly schedule instantly—guaranteeing zero room collisions, respecting teacher workload caps, and automatically assigning substitute teachers when someone is absent. (Generation restricted to Admins/Principals, viewing open to all).
 - **Predictive Student Radar & Smart Attendance**: The AI analyzes historical attendance and academic data to detect at-risk students, dropping grades, and negative behavioural patterns, allowing educators to intervene early.
 
-## 🌟 Key Platform Features
+## 🌟 Comprehensive Feature List
 
-- **Role-Based Access Control (RBAC)**: Highly secure and tailored dashboards. A teacher only sees their class; the accountant only sees finances; the admin sees everything.
-- **Human-in-the-Loop Escalations**: A "Needs Attention" module that flags critical issues (e.g., fee mismatches, absent teachers) for manual approval.
-- **Collaborative Task Board**: Staff task management seamlessly integrated across all school modules.
+RootShala is a monolithic ERP packed with features tailored for modern school administration. 
+
+### 1. Advanced Role-Based Access Control (RBAC)
+- **10+ Pre-configured Roles**: Including Super Admin, Principal, Vice Principal, Class Teacher, Subject Teacher, Accountant, Receptionist, IT Support, Librarian, Counselor, Student, and Parent.
+- **Granular Permissions**: Modules dynamically lock and unlock depending on the authenticated user's exact permissions.
+- **Data Scoping**: Teachers only see data for their specific homeroom class; financial data is strictly siloed to the Accountant and Admins.
+
+### 2. Core Administrative Operations
+- **Student Directory Management**: Maintain comprehensive profiles with academic, behavioural, and fee records.
+- **Staff & Teacher Management**: Track teacher workloads, subject expertise, and availability.
+- **Class & Subject Management**: Map which teachers are handling which subjects for every class grade.
+
+### 3. Financial & Fee Ledger
+- **Fee Collection & Tracking**: Real-time overview of paid vs. pending fees.
+- **Automated Defaulter Management**: AI tools to identify overdue payments and draft reminder notices.
+- **Fee Receipt Reconciliation**: Upload physical bank receipts and have the system cross-check them against expected ledger values automatically.
+
+### 4. Smart Attendance System
+- **Rapid Homeroom Marking**: Class teachers can mark daily attendance with a few clicks.
+- **Automated Parent Alerts**: The system can trigger automated SMS/Email notifications to parents of absent students.
+- **Chronic Absence Detection**: Analytics identify students with problematic attendance trends.
+
+### 5. Document & Admissions Management
+- **Centralized Document Vault**: Securely store and verify student ID cards, previous transcripts, and admission forms.
+- **Automated OCR Parsing**: Upload an image of a document, and the AI extracts the data and checks for anomalies instantly.
+
+### 6. Dynamic Timetable & Scheduling
+- **Master Timetable Generation**: Generates conflict-free schedules across the entire school.
+- **Teacher Substitutions**: Automatically identifies available and qualified teachers to cover classes when a staff member calls in sick.
+
+### 7. Collaborative Task Board
+- **Cross-Department Tasks**: Assign tasks to different roles (e.g., "Principal assigning a discipline review to a Counselor").
+- **Real-time Status Tracking**: Monitor pending tasks directly from the main operations dashboard.
+
+### 8. Analytics & Reporting (Predictive Radar)
+- **Predictive Student Radar**: Highlights students who are falling behind academically or displaying concerning behavioral trends.
+- **Needs Attention Flags**: A centralized inbox for the Principal to approve high-stakes decisions (fee waivers, disciplinary actions).
 
 ## 🛠️ Tech Stack
 
