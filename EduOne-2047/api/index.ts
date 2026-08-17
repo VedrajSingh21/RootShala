@@ -421,7 +421,7 @@ Return STRICT valid JSON only.`,
 app.post("/api/documents/extract", async (req, res) => {
   const { imageBase64, mimeType, documentType, fileName } = req.body;
 
-  if (!ai || !process.env.GEMINI_API_KEY) {
+  if (!ai1 && !ai2) {
     return res.status(500).json({ error: "Gemini API key not configured." });
   }
 
