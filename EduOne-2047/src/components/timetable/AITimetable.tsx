@@ -95,7 +95,7 @@ export const AITimetable: React.FC<AITimetableProps> = ({
           </p>
         </div>
 
-        {(currentRole === 'Super Admin' || currentRole === 'Principal' || currentRole === 'Class Teacher') && (
+        {(currentRole === 'Super Admin' || currentRole === 'Principal') && (
           <button
             onClick={handleRunOptimizer}
             disabled={isGenerating}
