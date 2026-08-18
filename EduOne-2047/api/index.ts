@@ -22,8 +22,8 @@ app.use((req, res, next) => {
 });
 
 // Initialize Gemini Clients for Fallback
-const apiKey1 = (process.env.GEMINI_API_KEY_1 || process.env.GEMINI_API_KEY || "").replace(/[\uFEFF\s]/g, '');
-const apiKey2 = (process.env.GEMINI_API_KEY_2 || "").replace(/[\uFEFF\s]/g, '');
+const apiKey1 = (process.env.GEMINI_API_KEY_1 || process.env.GEMINI_API_KEY || "").replace(/[^\x20-\x7E]/g, '');
+const apiKey2 = (process.env.GEMINI_API_KEY_2 || "").replace(/[^\x20-\x7E]/g, '');
 
 const getGeminiInstance = (key: string) => {
   if (!key) return null;
