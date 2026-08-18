@@ -280,7 +280,7 @@ app.post("/api/ai/command", async (req, res) => {
   if (ai1 || ai2) {
     try {
       const response = await generateGeminiContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.6-flash",
         contents: `You are RootShala AI Command Center engine for a school operations platform.
 User Role: ${role}
 Query: "${prompt}"
@@ -455,7 +455,7 @@ If a field cannot be found, return empty string or null and a confidence of 0.`;
     const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
 
     const response = await generateGeminiContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-3.6-flash",
       contents: [
         {
           role: 'user', parts: [
@@ -643,7 +643,7 @@ app.post("/api/ai/predict-risk", async (req, res) => {
     `;
 
     const response = await generateGeminiContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-3.6-flash",
       contents: `System Instruction: You are an AI data analyst for schools. Always return valid JSON.\n\n${prompt}`,
       config: { responseMimeType: "application/json" }
     });
@@ -684,7 +684,7 @@ app.post("/api/ai/lesson-plan", async (req, res) => {
     }`;
 
     const response = await generateGeminiContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-3.6-flash",
       contents: `System Instruction: You are an expert teacher and curriculum designer. Return only valid JSON.\n\n${prompt}`,
       config: { responseMimeType: "application/json" }
     });
@@ -726,7 +726,7 @@ app.post("/api/ai/briefing", async (req, res) => {
     }`;
 
     const response = await generateGeminiContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-3.6-flash",
       contents: prompt,
       config: { responseMimeType: "application/json" }
     });
