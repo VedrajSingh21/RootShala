@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 });
 
 // Initialize Gemini Client
-const apiKey = process.env.GEMINI_API_KEY || "";
+const apiKey = process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY_2 || "";
 let ai: GoogleGenAI | null = null;
 if (apiKey) {
   ai = new GoogleGenAI({
@@ -262,7 +262,7 @@ app.post("/api/ai/command", async (req, res) => {
   if (ai) {
     try {
       const response = await ai.models.generateContent({
-        model: "gemini-1.5-flash",
+        model: "gemini-2.5-flash",
         contents: `You are RootShala AI Command Center engine for a school operations platform.
 User Role: ${role}
 Query: "${prompt}"
@@ -379,26 +379,126 @@ Return STRICT valid JSON only.`,
 app.post("/api/documents/extract", async (req, res) => {
   const { imageBase64, mimeType, documentType, fileName } = req.body;
 
-  if (!ai || !process.env.GEMINI_API_KEY) {
+  if (!ai || !apiKey) {
     return res.status(500).json({ error: "Gemini API key not configured." });
+  }
+
+  const ocrSpaceKey = process.env.OCR_SPACE_API_KEY;
+  if (!ocrSpaceKey && documentType === "FEE_RECEIPT") {
+    return res.status(500).json({ error: "OCR_SPACE_API_KEY is missing." });
   }
 
   if (!imageBase64) {
     return res.status(400).json({ error: "No image provided." });
   }
 
-  let schema = "";
-  if (documentType === "ADMISSION_FORM") {
-    schema = `{"studentName": "string", "dateOfBirth": "YYYY-MM-DD", "parentName": "string", "parentPhone": "string", "parentEmail": "string"}`;
-  } else if (documentType === "FEE_RECEIPT") {
-    schema = `{"studentName": "string", "invoiceNo": "string", "amount": "number", "paymentDate": "YYYY-MM-DD", "paymentMode": "string"}`;
-  } else if (documentType === "LEAVE_APPLICATION") {
-    schema = `{"studentName": "string", "leaveStartDate": "YYYY-MM-DD", "leaveEndDate": "YYYY-MM-DD", "reason": "string"}`;
-  } else {
-    return res.status(400).json({ error: "Unsupported document type: " + documentType });
-  }
+  try {
+    let extractedText = "";
 
-  const prompt = `Analyze this ${documentType} image and extract the requested fields. 
+    if (documentType === "FEE_RECEIPT") {
+      const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
+      const buffer = Buffer.from(base64Data, 'base64');
+      const blob = new Blob([buffer], { type: mimeType || 'image/png' });
+      
+      const formData = new FormData();
+      formData.append('file', blob, fileName || 'receipt.png');
+      formData.append('isTable', 'true');
+      formData.append('OCREngine', '2');
+
+      const ocrSpaceRes = await fetch("https://api.ocr.space/parse/image", {
+        method: "POST",
+        headers: {
+          "apikey": ocrSpaceKey!
+        },
+        body: formData as any
+      });
+
+      const ocrData = await ocrSpaceRes.json();
+
+      if (ocrData.IsErroredOnProcessing || !ocrData.ParsedResults || ocrData.ParsedResults.length === 0) {
+        console.error("OCR.space error details:", JSON.stringify(ocrData, null, 2));
+        return res.status(500).json({ error: "OCR.space failed to extract text from the image." });
+      }
+
+      extractedText = ocrData.ParsedResults.map((pr: any) => pr.ParsedText).join("\n");
+      
+      if (!extractedText.trim()) {
+         return res.status(500).json({ error: "OCR returned no text. Please try a clearer image." });
+      }
+
+      // 2. Use Gemini to structure the text
+      const schema = `{
+        "vendor": "string",
+        "receiptNumber": "string",
+        "invoiceNumber": "string",
+        "date": "YYYY-MM-DD",
+        "time": "string",
+        "customer": "string",
+        "items": [
+          { "description": "string", "quantity": number, "unitPrice": number, "amount": number }
+        ],
+        "subtotal": number,
+        "discount": number,
+        "cgst": number,
+        "sgst": number,
+        "igst": number,
+        "tax": number,
+        "total": number,
+        "paymentMethod": "string",
+        "transactionId": "string",
+        "rawText": "string"
+      }`;
+
+      const prompt = `You are a receipt structuring assistant. Extract information from the following OCR text of a receipt into the specified JSON format.
+      Do not hallucinate data. If a field is missing or cannot be inferred, return null or empty string.
+      
+      Schema:
+      ${schema}
+      
+      OCR Text:
+      ${extractedText}
+      
+      Return a JSON object with this exact structure:
+      {
+        "extractedFields": ${schema},
+        "confidenceScores": { "fieldName": number (0-100) },
+        "status": "APPROVED" | "NEEDS_REVIEW",
+        "reason": "Explain any low confidence fields or issues"
+      }
+      `;
+
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+        },
+      });
+
+      const responseText = response.text;
+      if (responseText) {
+        const parsed = JSON.parse(responseText);
+        parsed.extractedFields.rawText = extractedText;
+        const scores = Object.values(parsed.confidenceScores || {}) as number[];
+        const avgScore = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + (b as number), 0) / scores.length) : 0;
+        parsed.confidenceScore = avgScore;
+        return res.json(parsed);
+      } else {
+        console.error("Gemini returned empty response Text:", response);
+        return res.status(500).json({ error: "Empty response from Gemini API during structuring." });
+      }
+    } else {
+      // Legacy handling for other document types
+      let schema = "";
+      if (documentType === "ADMISSION_FORM") {
+        schema = `{"studentName": "string", "dateOfBirth": "YYYY-MM-DD", "parentName": "string", "parentPhone": "string", "parentEmail": "string"}`;
+      } else if (documentType === "LEAVE_APPLICATION") {
+        schema = `{"studentName": "string", "leaveStartDate": "YYYY-MM-DD", "leaveEndDate": "YYYY-MM-DD", "reason": "string"}`;
+      } else {
+        return res.status(400).json({ error: "Unsupported document type: " + documentType });
+      }
+
+      const prompt = `Analyze this ${documentType} image and extract the requested fields. 
 Return a JSON object with this exact structure:
 {
   "extractedFields": ${schema},
@@ -409,38 +509,37 @@ Return a JSON object with this exact structure:
 If any field's confidence is below 90, set status to "NEEDS_REVIEW". Otherwise "APPROVED".
 If a field cannot be found, return empty string or null and a confidence of 0.`;
 
-  try {
-    const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
+      const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
 
-    const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
-      contents: [
-        {
-          role: 'user', parts: [
-            { text: prompt },
-            { inlineData: { data: base64Data, mimeType: mimeType || "image/jpeg" } }
-          ]
-        }
-      ],
-      config: {
-        responseMimeType: "application/json",
-      },
-    });
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: [
+          {
+            role: 'user', parts: [
+              { text: prompt },
+              { inlineData: { data: base64Data, mimeType: mimeType || "image/jpeg" } }
+            ]
+          }
+        ],
+        config: {
+          responseMimeType: "application/json",
+        },
+      });
 
-    const responseText = response.text;
-    if (responseText) {
-      const parsed = JSON.parse(responseText);
-      // Ensure we add overall confidence score (average or min of fields)
-      const scores = Object.values(parsed.confidenceScores || {}) as number[];
-      const avgScore = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
-      parsed.confidenceScore = avgScore;
-      res.json(parsed);
-    } else {
-      res.status(500).json({ error: "Empty response from Gemini API" });
+      const responseText = response.text;
+      if (responseText) {
+        const parsed = JSON.parse(responseText);
+        const scores = Object.values(parsed.confidenceScores || {}) as number[];
+        const avgScore = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + (b as number), 0) / scores.length) : 0;
+        parsed.confidenceScore = avgScore;
+        return res.json(parsed);
+      } else {
+        return res.status(500).json({ error: "Empty response from Gemini API" });
+      }
     }
-  } catch (e) {
-    console.error("Gemini OCR error:", e);
-    res.status(500).json({ error: "Extraction failed" });
+  } catch (e: any) {
+    console.error("Extraction error:", e);
+    res.status(500).json({ error: "Extraction failed: " + e.message });
   }
 });
 
@@ -594,7 +693,7 @@ app.post("/api/ai/predict-risk", async (req, res) => {
     `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
       contents: `System Instruction: You are an AI data analyst for schools. Always return valid JSON.\n\n${prompt}`,
       config: { responseMimeType: "application/json" }
     });
@@ -635,7 +734,7 @@ app.post("/api/ai/lesson-plan", async (req, res) => {
     }`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
       contents: `System Instruction: You are an expert teacher and curriculum designer. Return only valid JSON.\n\n${prompt}`,
       config: { responseMimeType: "application/json" }
     });
@@ -677,7 +776,7 @@ app.post("/api/ai/briefing", async (req, res) => {
     }`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: { responseMimeType: "application/json" }
     });

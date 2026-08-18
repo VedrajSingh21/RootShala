@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 interface SmartFeeManagementProps {
   feeRecords: FeeRecord[];
   students: Student[];
-  onUploadReceipt: (fileName: string, studentName: string) => void;
+  onUploadReceipt: (fileName: string, ocrData: any) => void;
   onResolveMismatch: (feeId: string) => void;
   onSendReminder: (studentName: string) => void;
 }
@@ -70,7 +70,7 @@ export const SmartFeeManagement: React.FC<SmartFeeManagementProps> = ({
           toast.error(`OCR Error: ${data.error}`);
         } else {
           toast.success('Receipt scanned successfully!');
-          onUploadReceipt(selectedFile.name, data.extractedFields?.studentName || 'Unknown Student');
+          onUploadReceipt(selectedFile.name, data);
           setShowReceiptModal(false);
           setSelectedFile(null);
         }

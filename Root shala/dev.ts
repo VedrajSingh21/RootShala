@@ -1,3 +1,4 @@
+import "dotenv/config";
 import app from "./api/index.ts";
 import { createServer as createViteServer } from "vite";
 import path from "path";

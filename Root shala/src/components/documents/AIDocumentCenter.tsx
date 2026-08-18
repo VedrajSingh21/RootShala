@@ -159,14 +159,22 @@ export const AIDocumentCenter: React.FC<AIDocumentCenterProps> = ({
                       </span>
                     </div>
                     {isPending || doc.status === 'NEEDS_REVIEW' ? (
-                      <input 
-                        type="text"
-                        value={v}
-                        onChange={(e) => handleFieldChange(k, e.target.value)}
-                        className={`w-full px-2 py-1 rounded bg-white border focus:outline-none focus:ring-1 focus:ring-emerald-500 ${isLow ? 'border-amber-300' : 'border-slate-300'}`}
-                      />
+                      typeof v === 'object' && v !== null ? (
+                        <pre className="text-[9px] bg-white p-2 border rounded overflow-x-auto">{JSON.stringify(v, null, 2)}</pre>
+                      ) : (
+                        <input 
+                          type="text"
+                          value={v as string}
+                          onChange={(e) => handleFieldChange(k, e.target.value)}
+                          className={`w-full px-2 py-1 rounded bg-white border focus:outline-none focus:ring-1 focus:ring-emerald-500 ${isLow ? 'border-amber-300' : 'border-slate-300'}`}
+                        />
+                      )
                     ) : (
-                      <span className="font-semibold text-slate-800">{String(v)}</span>
+                      typeof v === 'object' && v !== null ? (
+                        <pre className="text-[9px] bg-slate-100 p-2 border rounded overflow-x-auto">{JSON.stringify(v, null, 2)}</pre>
+                      ) : (
+                        <span className="font-semibold text-slate-800">{String(v)}</span>
+                      )
                     )}
                   </div>
                 );
@@ -295,10 +303,14 @@ export const AIDocumentCenter: React.FC<AIDocumentCenterProps> = ({
                 <div className="font-semibold text-slate-700 text-[10px] uppercase tracking-wider mb-1">
                   Extracted Fields
                 </div>
-                {Object.entries(doc.extractedFields).map(([k, v]) => (
-                  <div key={k} className="flex justify-between text-[11px]">
+                {Object.entries(doc.extractedFields).filter(([k]) => k !== 'rawText').map(([k, v]) => (
+                  <div key={k} className="flex flex-col text-[11px] mb-1">
                     <span className="text-slate-400 capitalize">{k.replace(/([A-Z])/g, ' $1')}:</span>
-                    <span className="font-medium text-slate-800">{String(v)}</span>
+                    {typeof v === 'object' && v !== null ? (
+                        <pre className="font-medium text-slate-800 text-[9px] overflow-x-auto bg-slate-100 p-1 rounded mt-0.5">{JSON.stringify(v, null, 2)}</pre>
+                    ) : (
+                        <span className="font-medium text-slate-800">{String(v)}</span>
+                    )}
                   </div>
                 ))}
               </div>

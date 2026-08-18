@@ -336,27 +336,24 @@ function CoreApplication() {
     }
   };
 
-  const handleUploadReceipt = async (fileName: string, studentName: string) => {
+  const handleUploadReceipt = async (fileName: string, ocrData: any) => {
     if (!hasPermission(currentUser, PERMISSIONS.DOCUMENTS_UPLOAD_FEE)) {
       toast.error("UNAUTHORIZED: You do not have permission to upload fee receipts.");
       return;
     }
     try {
+      const extracted = ocrData.extractedFields || {};
       const newDoc: DocumentItem = {
         id: `DOC-${Date.now()}`,
         fileName,
         type: 'FEE_RECEIPT',
         uploadedAt: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }),
-        studentOrTeacherName: studentName,
-        extractedFields: {
-          studentName,
-          utrCode: 'UPI/20260727/110099',
-          amountPaid: '₹15,000',
-          bankName: 'ICICI Bank'
-        },
-        confidenceScore: 96,
-        status: 'APPROVED',
-        fileSize: '620 KB'
+        studentOrTeacherName: extracted.customer || extracted.studentName || 'Unknown Student',
+        extractedFields: extracted,
+        confidenceScore: ocrData.confidenceScore || 96,
+        status: ocrData.status || 'APPROVED',
+        reason: ocrData.reason || '',
+        fileSize: 'Unknown'
       };
       await set(ref(db, `documents/${newDoc.id}`), newDoc);
       toast.success('Fee receipt uploaded.');

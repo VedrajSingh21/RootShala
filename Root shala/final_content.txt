@@ -1,0 +1,166 @@
+RootShala
+STAFF
+
+School Operations
+
+DAILY OPERATIONS
+Operations Dashboard
+Smart Attendance
+Teachers & Substitutes
+Student Directory
+Fee & Bank Ledger
+School Timetable
+Exams & Grading
+Classes & Subjects
+Notice Board
+COMMS & AI WORKFLOWS
+Gmail & Parent Comms
+Admission OCR & Docs
+Needs Attention
+AI Command Center
+Reports & Analytics
+Predictive Student Radar
+Staff Task Board
+Super Admin Panel
+School Settings
+New Staff?
+Click for Easy Guide
+AI Assistant Ready
+Voice
+Ctrl + /
+Staff Guide
+AI Assistant
+V
+Vikram Sharma
+Document Center
+
+Optical field extraction across admission forms, fee receipts, and leave applications.
+
+Admission Form
+Fee Receipt
+Leave Application
+Upload Document
+All Categories
+Admission Form
+Fee Receipt
+Leave Application
+receipt.png
+FEE_RECEIPT • 8/18/26, 10:07 AM
+OCR: 71%
+EXTRACTED FIELDS
+Cgst:
+6839.55
+Customer:
+Greenfield Public School
+Date:
+2026-08-14
+Items:
+[
+  {
+    "amount": 49999,
+    "description": "RootShala School Management Software",
+    "quantity": 1,
+    "unitPrice": 49999
+  },
+  {
+    "amount": 9999,
+    "description": "Student Module (Add-on)",
+    "quantity": 1,
+    "unitPrice": 9999
+  },
+  {
+    "amount": 4999,
+    "description": "Mobile App Access",
+    "quantity": 1,
+    "unitPrice": 4999
+  },
+  {
+    "amount": 7499,
+    "description": "Implementation & Training",
+    "quantity": 1,
+    "unitPrice": 7499
+  },
+  {
+    "amount": 2499,
+    "description": "Cloud Backup (1 Year)",
+    "quantity": 1,
+    "unitPrice": 2499
+  }
+]
+Payment Method:
+UPI
+Receipt Number:
+R52508141025
+Sgst:
+6839.55
+Subtotal:
+75995
+Tax:
+13679.1
+Total:
+89674.1
+Vendor:
+RootShala Solutions Pvt. Ltd.
+Review Scan
+Approved
+receipt.png
+FEE_RECEIPT • 8/18/26, 10:09 AM
+OCR: 100%
+Quantity and unitPrice for items were inferred as 1 and equal to amount, respectively, as they were not explicitly provided. Tax was calculated as the sum of CGST and SGST.
+EXTRACTED FIELDS
+Cgst:
+6839.55
+Customer:
+Greenfield Public School
+Date:
+2026-08-14
+Items:
+[
+  {
+    "amount": 49999,
+    "description": "RootShala School Management Software",
+    "quantity": 1,
+    "unitPrice": 49999
+  },
+  {
+    "amount": 9999,
+    "description": "Student Module (Add-on)",
+    "quantity": 1,
+    "unitPrice": 9999
+  },
+  {
+    "amount": 4999,
+    "description": "Mobile App Access",
+    "quantity": 1,
+    "unitPrice": 4999
+  },
+  {
+    "amount": 7499,
+    "description": "Implementation & Training",
+    "quantity": 1,
+    "unitPrice": 7499
+  },
+  {
+    "amount": 2499,
+    "description": "Cloud Backup (1 Year)",
+    "quantity": 1,
+    "unitPrice": 2499
+  }
+]
+Payment Method:
+UPI
+Receipt Number:
+R52508141025
+Sgst:
+6839.55
+Subtotal:
+75995
+Tax:
+13679.1
+Time:
+Total:
+89674.1
+Vendor:
+RootShala Solutions Pvt. Ltd.
+Review Scan
+Approved
