@@ -482,9 +482,9 @@ If a field cannot be found, return empty string or null and a confidence of 0.`;
     } else {
       res.status(500).json({ error: "Empty response from Gemini API" });
     }
-  } catch (e) {
+  } catch (e: any) {
     console.error("Gemini OCR error:", e);
-    res.status(500).json({ error: "Extraction failed" });
+    res.status(500).json({ error: "Extraction failed", details: e?.message || String(e) });
   }
 });
 
